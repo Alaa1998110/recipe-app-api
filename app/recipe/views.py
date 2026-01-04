@@ -9,7 +9,22 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from recipe.serializers import ( TagSerializer , IngredientSerializer,RecipeImageSerializer)
 
-
+@extend_schema_view(
+    list= extend_schema(
+        parameters=[
+            OpenApiParameter(
+                'tags',
+                OpenApiTypes.STR,
+                description='Comma Separated list of IDs to filter ',
+            ),
+            OpenApiParameter(
+                'ingredients',
+                OpenApiTypes.STR,
+                description='Comma Separated list of IDs to filter ',
+            )
+        ]
+    )
+)
 class RecipeViewSet(viewsets.ModelViewSet):
     """ class manage recipe apis"""
     serializer_class = RecipeDetailSerializer
